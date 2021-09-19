@@ -60,7 +60,8 @@ public final class Main {
       runSparkServer((int) options.valueOf("port"));
     }
 
-    // TODO: Add your REPL here!
+    MathBot bot = new MathBot();
+    StarParser parser1 = new StarParser();
     try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
       String input;
       while ((input = br.readLine()) != null) {
@@ -68,8 +69,31 @@ public final class Main {
           input = input.trim();
           String[] arguments = input.split(" ");
           System.out.println(arguments[0]);
-          // TODO: complete your REPL by adding commands for addition "add" and subtraction
-          //  "subtract"
+          if (arguments[0].equals("add")) {
+            double one = Double.parseDouble(arguments[1]);
+            double two = Double.parseDouble(arguments[2]);
+            System.out.println(bot.add(one, two));
+          } else if (arguments[0].equals("subtract")) {
+            double one = Double.parseDouble(arguments[1]);
+            double two = Double.parseDouble(arguments[2]);
+            System.out.println(bot.subtract(one, two));
+          } else if (arguments[0].equals("stars")) {
+            parser1.parseFileData(arguments[1]);
+          } else if (arguments[0].equals("naive_neighbors")) {
+            String[] stars;
+            if (arguments.length == 5) {
+              stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]),
+                  Double.parseDouble(arguments[2]), Double.parseDouble(arguments[3]),
+                  Double.parseDouble(arguments[4]));
+            } else {
+              stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]), arguments[2]);
+            }
+            for (String star : stars) {
+              System.out.println(star);
+            }
+          } else {
+            System.out.println("ERROR: command not found");
+          }
         } catch (Exception e) {
           // e.printStackTrace();
           System.out.println("ERROR: We couldn't process your input");
