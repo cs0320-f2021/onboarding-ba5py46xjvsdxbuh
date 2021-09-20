@@ -1,5 +1,5 @@
 INPUT
-stars data/stars/one-star.csv
+stars one-star.csv
 naive_neighbors 1 "Lonely Star"
 OUTPUT
 Read 1 stars from data/stars/one-star.csv

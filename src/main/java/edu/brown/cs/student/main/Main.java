@@ -68,31 +68,37 @@ public final class Main {
         try {
           input = input.trim();
           String[] arguments = input.split(" ");
-          System.out.println(arguments[0]);
-          if (arguments[0].equals("add")) {
-            double one = Double.parseDouble(arguments[1]);
-            double two = Double.parseDouble(arguments[2]);
-            System.out.println(bot.add(one, two));
-          } else if (arguments[0].equals("subtract")) {
-            double one = Double.parseDouble(arguments[1]);
-            double two = Double.parseDouble(arguments[2]);
-            System.out.println(bot.subtract(one, two));
-          } else if (arguments[0].equals("stars")) {
-            parser1.parseFileData(arguments[1]);
-          } else if (arguments[0].equals("naive_neighbors")) {
-            String[] stars;
-            if (arguments.length == 5) {
-              stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]),
-                  Double.parseDouble(arguments[2]), Double.parseDouble(arguments[3]),
-                  Double.parseDouble(arguments[4]));
-            } else {
-              stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]), arguments[2]);
-            }
-            for (String star : stars) {
-              System.out.println(star);
-            }
-          } else {
-            System.out.println("ERROR: command not found");
+          //System.out.println(arguments[0]);
+          switch (arguments[0]) {
+            case "add":
+              double one = Double.parseDouble(arguments[1]);
+              double two = Double.parseDouble(arguments[2]);
+              System.out.println(bot.add(one, two));
+              break;
+            case "subtract":
+              one = Double.parseDouble(arguments[1]);
+              two = Double.parseDouble(arguments[2]);
+              System.out.println(bot.subtract(one, two));
+              break;
+            case "stars":
+              parser1.parseFileData(arguments[1]);
+              break;
+            case "naive_neighbors":
+              String[] stars;
+              if (arguments.length == 5) {
+                stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]),
+                    Double.parseDouble(arguments[2]), Double.parseDouble(arguments[3]),
+                    Double.parseDouble(arguments[4]));
+              } else {
+                stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]), arguments[2]);
+              }
+              for (String star : stars) {
+                System.out.println(star);
+              }
+              break;
+            default:
+              System.out.println("ERROR: command not found");
+              break;
           }
         } catch (Exception e) {
           // e.printStackTrace();

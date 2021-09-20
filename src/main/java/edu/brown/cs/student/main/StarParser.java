@@ -33,7 +33,7 @@ public class StarParser {
       e.printStackTrace();
       System.out.println("ERROR: Invalid input for REPL");
     }
-    System.out.println("Sucess! Loaded " + data.size() + " stars and their corresponding data");
+    System.out.println("Read " + data.size() + " stars from data/stars/" + filename);
   }
   /* This method is responsible for handling user input for searching for the nearest star with
   the arguments k, x, y, z. It uses a helper method to actually do the searching, then processes
@@ -93,7 +93,7 @@ public class StarParser {
     }
     int max = Integer.MAX_VALUE;
     //Arraylist is initaliazed with Integer Max values as a safe comparison
-    String[] blank = {"empty", String.valueOf(max)};
+    String[] blank = {"-1", String.valueOf(max)};
     for (int i = 0; i < k; i++) {
       closestEntries.add(blank);
     }
@@ -111,7 +111,7 @@ public class StarParser {
       for (int j = 0; j < k; j++) {
         //puts the Star name and distance in the list if the distance is smaller than existing entry
         if (distance < Double.parseDouble(closestEntries.get(j)[1])) {
-          String[] entry = {line[1], String.valueOf(distance)};
+          String[] entry = {line[0], String.valueOf(distance)};
           closestEntries.set(j, entry);
           break;
         //handles edge case where 2 stars are tied for furthest distance that belongs in list
