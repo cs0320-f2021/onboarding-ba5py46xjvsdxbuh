@@ -67,8 +67,9 @@ public final class Main {
       while ((input = br.readLine()) != null) {
         try {
           input = input.trim();
-          String[] arguments = input.split(" ");
-          //System.out.println(arguments[0]);
+          //This regex splits at spaces except when surrounded by quotes. I learned how to do this
+          // from this link https://stackabuse.com/regex-splitting-by-character-unless-in-quotes/
+          String[] arguments = input.split(" (?=([^\"]*\"[^\"]*\")*[^\"]*$)");
           switch (arguments[0]) {
             case "add":
               double one = Double.parseDouble(arguments[1]);
@@ -89,8 +90,11 @@ public final class Main {
                 stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]),
                     Double.parseDouble(arguments[2]), Double.parseDouble(arguments[3]),
                     Double.parseDouble(arguments[4]));
-              } else {
+              } else if (arguments.length == 3) {
                 stars = parser1.naiveNeighbors(Integer.parseInt(arguments[1]), arguments[2]);
+              } else {
+                throw new IllegalArgumentException("ERROR: arguments provided do not match the"
+                    + "requested format");
               }
               for (String star : stars) {
                 System.out.println(star);

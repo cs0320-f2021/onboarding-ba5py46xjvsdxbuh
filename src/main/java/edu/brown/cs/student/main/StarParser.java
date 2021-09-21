@@ -39,6 +39,9 @@ public class StarParser {
   the arguments k, x, y, z. It uses a helper method to actually do the searching, then processes
   the data here to be returned in the correct format.*/
   public String[] naiveNeighbors(int k, double x, double y, double z) {
+    if (this.data == null) {
+      throw new NullPointerException("ERROR: data is not loaded");
+    }
     ArrayList<String[]> closestEntries = closestStarSearch(k, x, y, z, null);
     String[] closestStars = new String[closestEntries.size()];
     for (int i = 0; i < closestEntries.size(); i++) {
@@ -50,6 +53,11 @@ public class StarParser {
   the arguments k, starName. It uses a helper method to actually do the searching, then processes
   the data here to be returned in the correct format.*/
   public String[] naiveNeighbors(int k, String starName) {
+    if (this.data == null) {
+      throw new NullPointerException("ERROR: data is not loaded");
+    }
+    //removes quotes from beginning and end of the string
+    starName = starName.replace("\"", "");
     double[] starPosition = findStarName(starName);
     double x = starPosition[0];
     double y = starPosition[1];
@@ -93,13 +101,17 @@ public class StarParser {
     }
     int max = Integer.MAX_VALUE;
     //Arraylist is initaliazed with Integer Max values as a safe comparison
-    String[] blank = {"-1", String.valueOf(max)};
+    String[] blank = {"", String.valueOf(max)};
     for (int i = 0; i < k; i++) {
       closestEntries.add(blank);
     }
     for (String[] line : this.data) {
       //Prevents adding the named star to the list of closest stars
       if (line[1].equals(starName)) {
+        if (k == data.size()) {
+          k = k - 1;
+          closestEntries.remove(k);
+        }
         continue;
       }
       double lineX = Double.parseDouble(line[2]);

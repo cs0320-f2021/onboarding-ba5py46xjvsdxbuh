@@ -1,0 +1,7 @@
+INPUT
+stars ten-star.csv
+naive_neighbors 3 "Super Duper"
+OUTPUT
+Read 10 stars from data/stars/ten-star.csv
+ERROR:
+END
